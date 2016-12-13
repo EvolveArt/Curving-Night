@@ -13,8 +13,12 @@ public class Snake : MonoBehaviour {
     public float rotationSpeed = 200f;
     public string PlayerName = "Player";
 
-    public string Axis = "Movement";
-    float horizontal = 0f;
+    public string leftCMD = "";
+    public string rightCMD = "";
+    bool lKeyPressed = false;
+    bool rKeyPressed = false;
+    float rotation = 0;
+    
 
     [HideInInspector]
     public bool isDead = false;
@@ -30,7 +34,6 @@ public class Snake : MonoBehaviour {
     }
 
 	void Update () {
-        horizontal = Input.GetAxisRaw(Axis);
 
         if(GetComponentInParent<Tail>().invicible == false && !isDead)
             KillIfOutmap();
@@ -50,14 +53,28 @@ public class Snake : MonoBehaviour {
 
 	// Update is called once per frame
 	void FixedUpdate () {
+        lKeyPressed = Input.GetKey(leftCMD);
+        rKeyPressed = Input.GetKey(rightCMD);
+
+        if(lKeyPressed)
+        {
+            rotation = Mathf.Lerp(0f, 1f, Time.time / 2f);
+        } else if(rKeyPressed)
+        {
+            rotation = -(Mathf.Lerp(0f, 1f, Time.time / 2f));
+        } else
+        {
+            rotation = 0;
+        }
+
         transform.Translate(Vector2.up * speed * Time.fixedDeltaTime, Space.Self);
         if (!commandsReversed)
         {
-            transform.Rotate(Vector3.forward * -horizontal * rotationSpeed * Time.fixedDeltaTime);
+            transform.Rotate(Vector3.forward * rotation * rotationSpeed * Time.fixedDeltaTime);
         }
         else
         {
-            transform.Rotate(Vector3.forward * horizontal * rotationSpeed * Time.fixedDeltaTime);
+            transform.Rotate(Vector3.forward * -rotation * rotationSpeed * Time.fixedDeltaTime);
         }
     }
 
