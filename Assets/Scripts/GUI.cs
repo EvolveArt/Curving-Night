@@ -24,7 +24,7 @@ public class GUI : MonoBehaviour {
     void Start()
     {
         RoundText.text = "<i>ROUND</i>  " + GameManager.roundNumber;
-        pointsToWinText.text = "<size=130>" + GameManager.Instance.pointsToWin + "</size>       Points To Win";
+        pointsToWinText.text = "<size=130>" + GameManager.pointsToWin + "</size>       Points To Win";
 
         players = FindObjectsOfType<Snake>();  
                      

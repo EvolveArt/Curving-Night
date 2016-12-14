@@ -17,6 +17,17 @@ public class Menu : MonoBehaviour {
     public Slider playersSlider;
     private int numberOfPlayers = 2;
 
+    [Header("Points To Win")]
+    public Text PointsToWin;
+    public Slider pointsToWinSlider;
+    private int pointsToWin = 25;
+
+    public void PointsToWinSlider()
+    {
+        pointsToWin = (int)pointsToWinSlider.value;
+        PointsToWin.text = pointsToWin.ToString();
+    }
+
     public void PlayersSlider()
     {
         numberOfPlayers = (int)playersSlider.value;
@@ -59,6 +70,7 @@ public class Menu : MonoBehaviour {
 
     public void PlayGame()
     {
+        GameManager.pointsToWin = pointsToWin; 
         RandomSpawn.players = numberOfPlayers;
         SceneManager.LoadScene( GameSceneName );
     }

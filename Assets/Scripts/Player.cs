@@ -36,7 +36,7 @@ public class Player : MonoBehaviour {
             {
                 if (_points >= (p._points + 2))
                 {
-                    if (_points >= GameManager.Instance.pointsToWin)
+                    if (_points >= GameManager.pointsToWin)
                     {
                         GameManager.Instance.EndTheGame(this);
                         return true;

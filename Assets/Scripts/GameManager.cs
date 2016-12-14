@@ -20,7 +20,7 @@ public class GameManager : MonoBehaviour {
     public Text winText;
     public GameObject winSpace;
 
-    public int pointsToWin = 25;
+    public static int pointsToWin = 25;
     private int playerDeadRank;
 
     [HideInInspector]
