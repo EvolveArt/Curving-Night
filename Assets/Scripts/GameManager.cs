@@ -10,12 +10,12 @@ public class GameManager : MonoBehaviour {
     public static GameManager Instance { get { return instance; } }
 
     Snake[] snakes = new Snake[0];
-    int snakesAlive = 0;
+    private int snakesAlive = 0;
     Snake Winner = new Snake();
 
-    float roundOverTime = 3f;
-    bool roundOver = false;
-    bool gameFinished = false;
+    public float roundOverTime = 3f;
+    private bool roundOver = false;
+    private bool gameFinished = false;
 
     public Text winText;
     public GameObject winSpace;
@@ -28,20 +28,26 @@ public class GameManager : MonoBehaviour {
 
     public static int roundNumber = 1;
 
-    void Awake()
+    public GameObject pauseMenu;
+
+    private void Awake()
     {
         instance = this;
     }
 
-    void Start()
+    private void Start()
     {
         playerDeadRank = 0;
 
         snakes = FindObjectsOfType(typeof(Snake)) as Snake[];
 
-        foreach (Snake snake in snakes) {
-            if (!snake.isDead)
-                snakesAlive++;
+        if (snakes != null)
+        {
+            foreach (Snake snake in snakes)
+            {
+                if (!snake.isDead)
+                    snakesAlive++;
+            }
         }
 
         numberOfPlayers = snakesAlive;
@@ -49,18 +55,19 @@ public class GameManager : MonoBehaviour {
         Debug.Log(numberOfPlayers + " joueur(s)");
     }
 
-    void Update()
+    private void Update()
     {
-        if (snakesAlive <= 1 &&  !roundOver)
-        {
-            foreach (Snake snake in snakes)
-            {
-                if (!snake.isDead)
-                    snake.GetComponentInParent<Player>().AddPoints(numberOfPlayers);
-            }
+        if (Input.GetKeyDown(KeyCode.Escape))
+            PauseGame();
 
-            StartCoroutine(EndRound());
+        if (snakesAlive > 1 || roundOver) return;
+        foreach (Snake snake in snakes)
+        {
+            if (!snake.isDead)
+                snake.GetComponentInParent<Player>().AddPoints(numberOfPlayers);
         }
+
+        StartCoroutine(EndRound());
     }
 
     public void KillPlayer (GameObject go)
@@ -85,7 +92,7 @@ public class GameManager : MonoBehaviour {
 
     }
 
-    IEnumerator  EndRound()
+    private IEnumerator  EndRound()
     {
         Debug.Log("Round Over !");
         roundOver = true;
@@ -132,6 +139,21 @@ public class GameManager : MonoBehaviour {
         Debug.Log("Game finished !" + winner.name);
         GameOver.Instance.DisplayGameOver(winner.GetComponentInChildren<Snake>());
         StartCoroutine( GUI.Instance.UpdatePlayersPoints());
+    }
+
+    private void PauseGame()
+    {
+        pauseMenu.SetActive(!pauseMenu.activeSelf);
+        if (pauseMenu.activeSelf)
+            Time.timeScale = 0;
+        else Time.timeScale = 1;
+    }
+
+    public void ResumeGame()
+    {
+        pauseMenu.SetActive(false);
+        // TODO : Starting Counter
+        Time.timeScale = 1;
     }
 
 }

@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Player : MonoBehaviour {
 
@@ -11,7 +9,7 @@ public class Player : MonoBehaviour {
     public int _points;
     private int pointsWon;
 
-    void Start()
+    private void Start()
     {
         players = FindObjectsOfType(typeof(Player)) as Player[];
 
@@ -50,7 +48,7 @@ public class Player : MonoBehaviour {
         return false;   
     }    
 
-    void AssignPoints()
+    private void AssignPoints()
     {
         _points = Points.playerPoints[playerID];
     }

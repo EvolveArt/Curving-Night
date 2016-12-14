@@ -24,7 +24,7 @@ public class Tail : MonoBehaviour {
     [HideInInspector]
     public float snakeWidth;
 
-    void Start()
+    private void Start()
     {
         line = GetComponent<LineRenderer>();
         coll = GetComponent<EdgeCollider2D>();
@@ -40,17 +40,17 @@ public class Tail : MonoBehaviour {
         snakeWidth = baseSnakeWidth;
     }
 
-    void Update()
+    private void Update()
     {
         line.startWidth = snakeWidth;
         line.endWidth = snakeWidth;
 
-        if(!invicible)
-            if (Vector3.Distance(points.Last(), Snake.position) > pointSpacing)
-                setPoint();
+        if (invicible) return;
+        if (Vector3.Distance(points.Last(), Snake.position) > pointSpacing)
+            setPoint();
     }
 
-    void setPoint()
+    private void setPoint()
     {
         if(points.Count > 2)
         {
@@ -64,7 +64,7 @@ public class Tail : MonoBehaviour {
 
     }
 
-    IEnumerator MakeInvicible(float time)
+    private IEnumerator MakeInvicible(float time)
     {
         invicible = true;
         yield return new WaitForSeconds(time);

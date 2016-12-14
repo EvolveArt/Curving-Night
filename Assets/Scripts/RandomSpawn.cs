@@ -16,10 +16,7 @@ public class RandomSpawn : MonoBehaviour {
 
     public GameObject[] powerups;
 
-    private GameObject playerToSpawn;
-    private GameObject powerupToSpawn;
-
-    void Start()
+    private void Start()
     {
         SpawnPlayers();
 
@@ -29,7 +26,7 @@ public class RandomSpawn : MonoBehaviour {
         wall.localScale = Menu.wallScale;
     }
 
-    void Update()
+    private void Update()
     {
         int a = Random.Range(0, 1000);
         if (a > 998)
@@ -78,7 +75,7 @@ public class RandomSpawn : MonoBehaviour {
         }
     }
 
-    void SpawnPowerup()
+    private void SpawnPowerup()
     {
         for (int i = 0; i < Random.Range(1f, 3f); i++)
         {

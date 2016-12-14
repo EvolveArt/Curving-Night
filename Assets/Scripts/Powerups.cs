@@ -28,7 +28,7 @@ public class Powerups : MonoBehaviour {
         //instance = this;
     }
 
-    void OnTriggerEnter2D(Collider2D col)
+    private void OnTriggerEnter2D(Collider2D col)
     {
         Destroy(gameObject);
 

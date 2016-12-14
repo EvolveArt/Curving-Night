@@ -8,16 +8,16 @@ public class Snake : MonoBehaviour {
 
     Tail[] snakes = new Tail[0];
 
-    float speed;
+    private float speed;
     public float baseSpeed = 2f;
     public float rotationSpeed = 200f;
     public string PlayerName = "Player";
 
     public string leftCMD = "";
     public string rightCMD = "";
-    bool lKeyPressed = false;
-    bool rKeyPressed = false;
-    float rotation = 0;
+    private bool lKeyPressed = false;
+    private bool rKeyPressed = false;
+    private float rotation = 0;
     
 
     [HideInInspector]
@@ -25,7 +25,7 @@ public class Snake : MonoBehaviour {
 
     private bool commandsReversed = false;
 
-	void Start()
+	private void Start()
     {
         instance = this;
         speed = baseSpeed;
@@ -33,7 +33,7 @@ public class Snake : MonoBehaviour {
         snakes = FindObjectsOfType(typeof(Tail)) as Tail[];
     }
 
-	void Update () {
+	private void Update () {
 
         if(GetComponentInParent<Tail>().invicible == false && !isDead)
             KillIfOutmap();
@@ -45,14 +45,15 @@ public class Snake : MonoBehaviour {
         }
 	}
 	
-    void KillIfOutmap()
+    private void KillIfOutmap()
     {
         if (transform.position.x > RandomSpawn.mapWidth || transform.position.x < -RandomSpawn.mapWidth  || transform.position.y > RandomSpawn.mapHeight || transform.position.y < -RandomSpawn.mapHeight )
                 GameManager.Instance.KillPlayer(this.gameObject);
     }
 
 	// Update is called once per frame
-	void FixedUpdate () {
+	private void FixedUpdate ()
+    {
         lKeyPressed = Input.GetKey(leftCMD);
         rKeyPressed = Input.GetKey(rightCMD);
 
@@ -78,7 +79,7 @@ public class Snake : MonoBehaviour {
         }
     }
 
-    void OnTriggerEnter2D(Collider2D coll)
+    private void OnTriggerEnter2D(Collider2D coll)
     {
         if(coll.tag == "Solid" && !GetComponentInParent<Tail>().invicible)
         {
@@ -151,28 +152,28 @@ public class Snake : MonoBehaviour {
         }
     }
 
-    IEnumerator MinusSpeed(Snake player, float time, float ToReset)
+    private IEnumerator MinusSpeed(Snake player, float time, float ToReset)
     {
         yield return new WaitForSecondsRealtime(time);
         if (!isDead)
             player.speed -= ToReset;           
     }
 
-    IEnumerator PlusSpeed(Snake player, float time, float ToReset)
+    private IEnumerator PlusSpeed(Snake player, float time, float ToReset)
     {
         yield return new WaitForSecondsRealtime(time);
         if (!isDead)
             player.speed += ToReset;
     }
 
-    IEnumerator MinusWidth(Tail player, float time, float ToWidth)
+    private IEnumerator MinusWidth(Tail player, float time, float ToWidth)
     {
         yield return new WaitForSecondsRealtime(time);
         if (!isDead)
             player.snakeWidth -= ToWidth;
     }
 
-    IEnumerator PlusWidth(Tail player, float time, float ToWidth)
+    private IEnumerator PlusWidth(Tail player, float time, float ToWidth)
     {
         yield return new WaitForSecondsRealtime(time);
         if (!isDead)
@@ -194,7 +195,7 @@ public class Snake : MonoBehaviour {
         }
     }
 
-    IEnumerator ReverseCommands(Snake player, float time)
+    private IEnumerator ReverseCommands(Snake player, float time)
     {
         yield return new WaitForSeconds(time);
         player.commandsReversed = false;

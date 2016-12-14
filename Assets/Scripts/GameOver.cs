@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using UnityEngine.SceneManagement;
+﻿using UnityEngine.SceneManagement;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,7 +10,7 @@ public class GameOver : MonoBehaviour {
     public GameObject GameOverUI;
     public Text resultText;
     
-    void Awake()
+    private void Awake()
     {
         instance = this;
     }
@@ -30,6 +29,9 @@ public class GameOver : MonoBehaviour {
         GameManager.roundNumber = 0;
 
         SceneManager.LoadScene( "Menu" );
+
+        if (Time.timeScale < 1)
+            Time.timeScale = 1;
     }
 
     public void DisplayGameOver(Snake winner)

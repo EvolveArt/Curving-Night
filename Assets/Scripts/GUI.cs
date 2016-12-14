@@ -16,12 +16,12 @@ public class GUI : MonoBehaviour {
     private Snake[] players;
     private List<Text> texts = new List<Text>();
 
-    void Awake()
+    private void Awake()
     {
         instance = this;
     }
     
-    void Start()
+    private void Start()
     {
         RoundText.text = "<i>ROUND</i>  " + GameManager.roundNumber;
         pointsToWinText.text = "<size=130>" + GameManager.pointsToWin + "</size>       Points To Win";
@@ -46,7 +46,7 @@ public class GUI : MonoBehaviour {
 	
     public IEnumerator UpdatePlayersPoints()
     {
-        yield return new WaitForSeconds(0.00000001f);
+        yield return new WaitForSeconds(0.00000000000000000001f);
 
         for (int i = 0; i < texts.Count; i++)
         {
