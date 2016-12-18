@@ -13,8 +13,8 @@ public class Snake : MonoBehaviour {
     public float rotationSpeed = 200f;
     public string PlayerName = "Player";
 
-    public string leftCMD = "";
-    public string rightCMD = "";
+    public KeyCode leftCMD;
+    public KeyCode rightCMD;
     private bool lKeyPressed = false;
     private bool rKeyPressed = false;
     private float rotation = 0;

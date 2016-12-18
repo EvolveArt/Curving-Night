@@ -4,7 +4,7 @@ using UnityEngine.SceneManagement;
 
 public class Menu : MonoBehaviour {
 
-    public string GameSceneName;
+    public string LoadingSceneName;
 
     [Header("Size Panel")]
     public Text mapSize;
@@ -72,6 +72,11 @@ public class Menu : MonoBehaviour {
     {
         GameManager.pointsToWin = pointsToWin; 
         RandomSpawn.players = numberOfPlayers;
-        SceneManager.LoadScene( GameSceneName );
+        SceneManager.LoadScene( LoadingSceneName );
+    }
+
+    public void ExitGame()
+    {
+        Application.Quit();
     }
 }

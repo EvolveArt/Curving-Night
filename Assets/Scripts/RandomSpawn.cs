@@ -12,7 +12,7 @@ public class RandomSpawn : MonoBehaviour {
 
     //public GameObject player1Prefab;
     //public GameObject player2Prefab;
-    public GameObject[] playersPrefab;
+    public GameObject playerPrefab;
 
     public GameObject[] powerups;
 
@@ -33,7 +33,7 @@ public class RandomSpawn : MonoBehaviour {
             SpawnPowerup();
     }
     
-    void SpawnPlayers()
+    public void SpawnPlayers()
     {
         //for (int i = 0; i < players; i++)
         //{
@@ -57,22 +57,39 @@ public class RandomSpawn : MonoBehaviour {
         //    snake.transform.Rotate(new Vector3(0, 0, zR));
         //}
 
-        foreach (GameObject player in playersPrefab)
+        for (int i = 0; i < players; i++)
         {
+            //if (playersSpawned >= players)
+                //return;
 
-            if (playersSpawned >= players)
-                return;
-
-            playersSpawned++;
+            //playersSpawned++;
 
             float x = Random.Range(-mapWidth + 0.1f, mapWidth - 0.1f);
             float y = Random.Range(-mapHeight + 0.1f, mapHeight - 0.1f);
             float zR = Random.Range(0f, 360f);
 
-            Instantiate(player, new Vector3(x, y, 1), Quaternion.identity); /* Instantiate player */
-            Snake snake = player.GetComponentInChildren<Snake>();
-            snake.transform.Rotate(new Vector3(0, 0, zR));              
+            GameObject go = Instantiate(playerPrefab, new Vector3(x, y, 1), Quaternion.identity); /* Instantiate player */
+            Snake snake = go.GetComponentInChildren<Snake>();
+            snake.transform.Rotate(new Vector3(0, 0, zR));
+
+            //Change each player color
+            LineRenderer lineColor = go.GetComponentInChildren<LineRenderer>();
+            SpriteRenderer headColor = go.GetComponentInChildren<SpriteRenderer>();
+            lineColor.startColor = MenuManager.playerColors[i];
+            lineColor.endColor = MenuManager.playerColors[i];
+            headColor.color = MenuManager.playerColors[i];
+
+            //Change each player commands
+            snake.leftCMD = MenuManager.leftPlayerCommands[i];
+            snake.rightCMD = MenuManager.rightPlayerCommands[i];
+
+            //Change each player name
+            snake.PlayerName = "Player " + (i+1).ToString();
+
+            //Change each player ID
+            go.GetComponentInParent<Player>().playerID = i;
         }
+
     }
 
     private void SpawnPowerup()

@@ -39,4 +39,5 @@ public class GameOver : MonoBehaviour {
         GameOverUI.SetActive(true);
         resultText.text = winner.PlayerName + " has won !";
     }
+
 }

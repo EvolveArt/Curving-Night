@@ -29,6 +29,7 @@ public class GameManager : MonoBehaviour {
     public static int roundNumber = 1;
 
     public GameObject pauseMenu;
+    public GameObject deathParticleEffect;
 
     private void Awake()
     {
@@ -82,6 +83,7 @@ public class GameManager : MonoBehaviour {
 
         if (snake.GetComponent<Snake>() != null && !tail.invicible)
         {
+            Instantiate(deathParticleEffect, snake.transform.position, Quaternion.identity);
             playerDeadRank++;
             snakesAlive--; 
             if(!roundOver)
