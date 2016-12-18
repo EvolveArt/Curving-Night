@@ -1,7 +1,7 @@
 # Curving-Night
 Little arcade video game
 
-Curving Night - @@Version 3.1
+Curving Night - @@Version 4.0
 Made with unity 5.3b ----
 
 Development schedule : https://trello.com/b/nwh6LWAZ/curving-night
